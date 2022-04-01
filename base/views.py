@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
+from .models import Post, Profile, Like, Comment
 
 def home(request):
-    context = {}
+    posts = Post.objects.all()
+
+    context = {'posts': posts}
     return render(request, 'base/home.html', context)
 
 def room(request):

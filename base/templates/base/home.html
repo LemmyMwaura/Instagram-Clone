@@ -2,8 +2,12 @@
 {% load static %}
 
 {% block link %}
+    <link rel="stylesheet" href="{% static 'styles/home.css' %}">
 {% endblock %}
     
 {% block content %}
-    
+    {% for post in posts %}
+    <img src="{{ post.image.url }}" alt="">
+    <h5>{{ post.caption }}</h5>
+    {% endfor %}
 {% endblock %}
