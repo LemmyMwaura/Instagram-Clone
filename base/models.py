@@ -2,13 +2,28 @@ from django.db import models
 from cloudinary.models import CloudinaryField
 from django.contrib.auth.models import User
 
+class Profile(models.Model):
+    user_profile = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile_photo = CloudinaryField('profile_photo')
+    bio = models.TextField()
+    following = models.ManyToManyField(User, related_name='following', blank=True)
+    followers = models.ManyToManyField(User, related_name='followers', blank=True)
+    updated = models.DateTimeField(auto_now=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True, blank=True)
+
+    class Meta:
+        ordering = ['updated', 'created']
+
+    def __str__(self):
+        return self.user_profile.username
+
 class Post(models.Model):
     image = CloudinaryField('image')
     image_name = models.TextField()
     caption = models.TextField()
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(User , on_delete=models.CASCADE)
+    author = models.ForeignKey(Profile , on_delete=models.CASCADE)
     message = models.ForeignKey("Comment", on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
@@ -26,14 +41,6 @@ class Post(models.Model):
     @classmethod
     def update_caption(cls,pk):
         return cls.objects.get(id=pk)
-
-class Profile(models.Model):
-    profile_photo = CloudinaryField('profile_photo')
-    bio = models.TextField()
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.bio
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -53,7 +60,7 @@ class Like(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.body[:50]
+        return self.user.username
 
     class Meta:
         ordering = ['updated', 'created']
