@@ -7,13 +7,14 @@ from django.contrib.auth.forms import UserCreationForm
 from django.db.models import Q
 from django.contrib import messages 
 from .forms import PostForm
+import os
 
 def home(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
     posts = Post.objects.filter(
         Q(caption__icontains = q) |
         Q(image_name__icontains = q) |
-        Q(author__username__icontains = q)
+        Q(author__user_profile__username__icontains = q)
     )
 
     context = { 'posts': posts }
@@ -73,16 +74,33 @@ def create_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            user = form.save(commit=False)
+            user.author_id = request.user.id
+            user.save()
             return redirect('home')
 
-    context = {'form': form}
+    context = {'form': form }
     return render(request, 'base/post_form.html', context)
 
 @login_required(login_url='login')
-def update_post(request):
-    context = {}
-    return render(request, 'base/home.html', context)
+def update_post(request, pk):
+    post = Post.objects.get(id=pk)
+    form = PostForm(instance=post)
+
+    if request.user != post.author:
+        messages.error(request, 'You are not the author of the post!')
+        return redirect('home')
+
+    if request.method == 'POST':
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            print(request.POST)
+            image = form.save(commit=False)
+            image.save()
+            return redirect('home')
+
+    context = { 'form':form }
+    return render(request, 'base/post_form.html', context)
 
 @login_required(login_url='login')
 def delete_post(request, pk):
