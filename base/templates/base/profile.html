@@ -1,0 +1,39 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block link %}
+{% endblock %}
+
+{% block content%}
+
+<h5>
+    <div class="profile">
+        <img src="" alt="">
+        <div class="count">
+            <p> posts {{ posts.count }}</p>
+            <p> followers {{ posts.count }}</p>
+            <p> following {{ posts.count }}</p>
+        </div>
+    </div>
+    <div class="info">
+        <h3>{{ user.username }}</h3>
+    </div>
+    <div class="edit-profile">
+
+    </div>
+    <div class="posts">
+        {% for post in posts %}
+        <img src="{{ post.image.url }}" alt="">
+        <h5>{{ post.caption }}</h5>
+        <a href="{% url 'profile' post.author.user_profile.id %}">{{ post.author.user_profile }}</a>
+        <div class="edits">
+            {% if request.user == post.author.user_profile %}
+            <a href="{% url 'update-post' post.id %}">Update Post</a>
+            <a href="{% url 'delete-post' post.id %}">Delete Post</a>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</h5>
+
+{% endblock %}

@@ -115,3 +115,11 @@ def delete_post(request, pk):
 
     context = { 'obj':post }
     return render(request, 'base/delete.html', context)
+
+def user_profile(request,pk):
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
+    user = User.objects.get(id=pk)
+    posts = user.post_set.all()
+
+    context = { 'user':user, 'posts':posts }
+    return render(request, 'base/profile.html', context)
