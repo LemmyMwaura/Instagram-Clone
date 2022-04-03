@@ -132,9 +132,10 @@ def user_profile(request,pk):
 @login_required(login_url='login')
 def follow_toggle(request, pk):
     user_profile = User.objects.get(id=pk)
-    current_user = User.objects.get(id=request.user.id)
-    following = user_profile.following.all()
     followers = user_profile.followers.all()
+
+    current_user = User.objects.get(id=request.user.id)
+    following = current_user.following.all()
 
     print(user_profile)
     print(current_user)
@@ -142,11 +143,21 @@ def follow_toggle(request, pk):
     print('followers ->', followers)
 
     if user_profile != current_user:
-        if current_user in following:
-            user_profile.following.remove(current_user.id)
+        new_follower = Profile.objects.get(id=pk)
+        now_following = Profile.objects.get(id=request.user.id)
+        if current_user in followers:
+            new_follower.followers.remove(current_user.id)
+            print('followers ->', followers)
+        else:
+            new_follower.followers.add(current_user.id)
+            print('followers ->', followers)
+
+        if user_profile in following:
+            now_following.followers.remove(current_user.id)
             print('following ->', following)
         else:
-            user_profile.following.add(current_user.id)
+            now_following.followers.add(current_user.id)
             print('following ->', following)
+
 
     return HttpResponseRedirect(reverse('profile', args=[user_profile.id]))
