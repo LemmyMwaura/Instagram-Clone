@@ -12,8 +12,9 @@
     {% for post in posts %}
     <img src="{{ post.image.url }}" alt="">
     <h5>{{ post.caption }}</h5>
+    <a href="{% url 'profile' post.author.user_profile.id %}">{{ post.author.user_profile }}</a>
     <div class="edits">
-        {% if request.user == post.author %}
+        {% if request.user == post.author.user_profile %}
         <a href="{% url 'update-post' post.id %}">Update Post</a>
         <a href="{% url 'delete-post' post.id %}">Delete Post</a>
         {% endif %}

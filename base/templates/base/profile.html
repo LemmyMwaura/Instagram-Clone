@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block link %}
+    <link rel="stylesheet" href="{% static 'styles/home.css' %}">
 {% endblock %}
 
 {% block content%}
@@ -11,8 +12,11 @@
         <img src="" alt="">
         <div class="count">
             <p> posts {{ posts.count }}</p>
-            <p> followers {{ posts.count }}</p>
-            <p> following {{ posts.count }}</p>
+            <a href="{% url 'follow' user.id %}">
+                <button>Follow</button>
+            </a>
+            <p> followers {{ followers.count }}</p>
+            <p> following {{ following.count }}</p>
         </div>
     </div>
     <div class="info">
@@ -23,7 +27,7 @@
     </div>
     <div class="posts">
         {% for post in posts %}
-        <img src="{{ post.image.url }}" alt="">
+        <img src="{{ post.image.url }}" alt="{{ post.image_name }}">
         <h5>{{ post.caption }}</h5>
         <a href="{% url 'profile' post.author.user_profile.id %}">{{ post.author.user_profile }}</a>
         <div class="edits">
