@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
 from .models import Post, Profile, Like, Comment
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.db.models import Q
+from django.urls import reverse
 from django.contrib import messages 
 from .forms import PostForm
 import os
@@ -14,7 +16,7 @@ def home(request):
     posts = Post.objects.filter(
         Q(caption__icontains = q) |
         Q(image_name__icontains = q) |
-        Q(author__user_profile__username__icontains = q)
+        Q(user_posts__username__icontains = q)
     )
 
     context = { 'posts': posts }
@@ -76,10 +78,11 @@ def create_post(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.author_id = request.user.id
+            user.user_posts_id = request.user.id
             user.save()
             return redirect('home')
 
-    context = {'form': form }
+    context = { 'form':form }
     return render(request, 'base/post_form.html', context)
 
 @login_required(login_url='login')
@@ -118,8 +121,32 @@ def delete_post(request, pk):
 
 def user_profile(request,pk):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
-    user = User.objects.get(id=pk)
+    user = Profile.objects.get(id=pk)
     posts = user.post_set.all()
+    followers = user.followers.all()
+    following = user.following.all()
 
-    context = { 'user':user, 'posts':posts }
+    context = { 'user':user, 'posts':posts, 'followers':followers, 'following':following, }
     return render(request, 'base/profile.html', context)
+
+@login_required(login_url='login')
+def follow_toggle(request, pk):
+    user_profile = User.objects.get(id=pk)
+    current_user = User.objects.get(id=request.user.id)
+    following = user_profile.following.all()
+    followers = user_profile.followers.all()
+
+    print(user_profile)
+    print(current_user)
+    print('following ->', following)
+    print('followers ->', followers)
+
+    if user_profile != current_user:
+        if current_user in following:
+            user_profile.following.remove(current_user.id)
+            print('following ->', following)
+        else:
+            user_profile.following.add(current_user.id)
+            print('following ->', following)
+
+    return HttpResponseRedirect(reverse('profile', args=[user_profile.id]))
