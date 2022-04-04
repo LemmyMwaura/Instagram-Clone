@@ -6,8 +6,8 @@ class Profile(models.Model):
     user_profile = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_photo = CloudinaryField('profile_photo', blank=True)
     bio = models.TextField(blank=True)
-    following = models.ManyToManyField(User, related_name='following', blank=True)
-    followers = models.ManyToManyField(User, related_name='followers', blank=True)
+    following = models.ManyToManyField('self', related_name='i_am_following', symmetrical=False, blank=True)
+    followers = models.ManyToManyField('self', related_name='my_followers', symmetrical=False, blank=True)
     updated = models.DateTimeField(auto_now=True, blank=True)
     created = models.DateTimeField(auto_now_add=True, blank=True)
 
