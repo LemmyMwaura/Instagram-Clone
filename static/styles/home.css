@@ -43,10 +43,27 @@ a{
     gap: 7px;
 }
 
+.edits-header{
+    display: flex;
+}
+
+.like-post-btn{
+    border: none;
+    outline: none;
+    background: none;
+    display: grid;
+    place-items: center;
+}
+
+.tooltip-like,
 .edits-header,
 .edits-footer > a{
     font-size: 24px;
     color: hsl(33, 44%, 5%);
+}
+
+.tooltip-like{
+    margin-top: -2px;
 }
 
 .edits-footer > a {

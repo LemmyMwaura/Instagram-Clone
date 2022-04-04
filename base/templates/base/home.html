@@ -22,9 +22,15 @@
             <div class="footer">
                 <div class="edits side-item">
                     <div class="edits-header">
-                        <i class='bx bx-heart'></i>
+                        <form action="{% url 'like-post' post.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="like-post-btn" method="GET">
+                                <i class='bx bx-heart tooltip-like'></i>
+                            </button>
+                        </form>
                         <i class='bx bx-message-rounded-dots bx-flip-horizontal'></i>
                     </div>
+                    <p class="likes count">{{ post.likes.count }} likes </p>
                     {% if request.user == post.author.user_profile %}
                     <div class="edits-footer">
                         <a href="{% url 'update-post' post.id %}"><i class='bx bxs-edit'></i></a>

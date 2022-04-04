@@ -2,49 +2,54 @@
 {% load static %}
 
 {% block link %}
-    <link rel="stylesheet" href="{% static 'styles/home.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/profile.css' %}">
 {% endblock %}
 
 {% block content%}
 
-<h5>
+<div class="container">
     <div class="profile">
-        <img src="" alt="">
-        <div class="count">
-            <p> posts {{ posts.count }}</p>
-            <a href="{% url 'follow' user.id %}">
-                <button>Follow</button>
-            </a>
-            <p> followers {{ followers.count }}</p>
-            <p> following {{ following.count }}</p>
+        <div class="image">
+            <img class="profile-photo" src="{{ user.profile_photo.url }}" alt="{{ user.user_profile.username }}'s profile photo">
+            <div class="user-name">{{ user.user_profile.username }}</div>
         </div>
-        {% for follower in followers %}
-        <h6> followers {{ follower }}</h6>
-        {% endfor %}
-
-        {% for follower in following %}
-        <h6> following {{ follower }}</h6>
-        {% endfor %}
+        <div class="user-details">
+            
+            <div class="user-counter">
+                <div class="posts-no item">
+                    <span>{{ posts.count }}</span>
+                    <span>posts </span>   
+                </div>
+                <div class="followers item">
+                    <span>{{ followers.count }}</span>
+                    <span>followers </span>
+                </div>
+                <div class="following item">
+                    <span>{{ following.count }}</span>
+                    <span>following</span>
+                </div>
+            </div>
+            <div class="profile-btns">
+                {% if request.user.id == user.id %}
+                <a href="{% url 'follow' user.id %}">
+                    <button class="profile-btn edit-btn">Edit Profile</button>
+                </a>
+                {% else %}
+                <a href="{% url 'follow' user.id %}">
+                    <button class="profile-btn follow-btn">Follow</button>
+                </a>
+                {% endif %}
+            </div>
+        </div>      
     </div>
-    <div class="info">
-        <h3> name {{ user.user_profile.username }}</h3>
+    <div class="posts-wrapper">
+        <div class="posts">
+            {% for post in posts %}
+                <div class="image-wrapper">
+                    <img  class='post-image'src="{{ post.image.url }}" alt="{{ post.image_name }}">
+                </div>  
+            {% endfor %}
+        </div>   
     </div>
-    <div class="edit-profile">
-
-    </div>
-    <div class="posts">
-        {% for post in posts %}
-        <img src="{{ post.image.url }}" alt="{{ post.image_name }}">
-        <h5>{{ post.caption }}</h5>
-        <a href="{% url 'profile' post.author.user_profile.id %}">{{ post.author.user_profile }}</a>
-        <div class="edits">
-            {% if request.user == post.author.user_profile %}
-            <a href="{% url 'update-post' post.id %}">Update Post</a>
-            <a href="{% url 'delete-post' post.id %}">Delete Post</a>
-            {% endif %}
-        </div>
-        {% endfor %}
-    </div>
-</h5>
-
+</div>
 {% endblock %}

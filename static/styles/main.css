@@ -53,3 +53,57 @@ nav{
     border: none;
     outline: none;
 }
+
+.links{
+    display: flex;
+    gap: 20px;
+    cursor: pointer;
+}
+
+/* Dropdown */
+.tooltip{
+    font-size: 24px;
+    color: black;
+}
+
+.nav-link{
+    cursor: pointer;
+    color: hsl(33, 44%, 5%);
+}
+
+.nav-link-btn{
+    background: rgba(0,0,0,0.4);
+    padding: 0.3rem;
+    color:white;
+    background-color: hsl(204, 96%, 49%);
+    border-radius: 5px;
+}
+
+.dropdown-menu.items{
+    display: grid;
+    gap: 10px;
+}
+.dropdown{
+    position: relative;
+}
+
+.dropdown-menu{
+    position: absolute;
+    left: 0;
+    top: calc(100% + .25rem);
+    background-color: white;
+    padding: 1rem;
+    border-radius: .25rem;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.1);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-10px);
+    z-index: 100;
+    transition: opacity 200ms ease-in-out, transform 200ms ease-in-out;
+}
+
+.dropdown.active > .dropdown-menu{
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
