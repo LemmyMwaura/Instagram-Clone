@@ -25,6 +25,7 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(Profile , on_delete=models.CASCADE)
     user_posts = models.ForeignKey(User , on_delete=models.CASCADE, null=True, blank=True)
+    likes = models.ManyToManyField(User,  related_name='likes')
 
     def __str__(self):
         return self.caption
@@ -55,13 +56,3 @@ class Comment(models.Model):
     class Meta:
         ordering = ['updated', 'created']
 
-class Like(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    updated = models.DateTimeField(auto_now=True)
-    created = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.user.username
-
-    class Meta:
-        ordering = ['updated', 'created']
