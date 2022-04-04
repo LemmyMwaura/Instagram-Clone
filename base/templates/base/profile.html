@@ -19,11 +19,15 @@
             <p> following {{ following.count }}</p>
         </div>
         {% for follower in followers %}
-        <h6>{{ follower }}</h6>
+        <h6> followers {{ follower }}</h6>
+        {% endfor %}
+
+        {% for follower in following %}
+        <h6> following {{ follower }}</h6>
         {% endfor %}
     </div>
     <div class="info">
-        <h3>{{ user.username }}</h3>
+        <h3> name {{ user.user_profile.username }}</h3>
     </div>
     <div class="edit-profile">
 

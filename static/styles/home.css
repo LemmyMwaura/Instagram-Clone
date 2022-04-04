@@ -1,5 +1,36 @@
 img{
     aspect-ratio: 4/4;
-    max-width: 400px;
+    max-width: 500px;
     object-fit: cover;
+}
+
+a{
+    text-decoration: none;
+}
+
+.posts{
+    display: grid;
+    place-items: center;
+}
+
+.post-wrapper{
+    transform: translateX(-10%);
+    max-width: 500px;
+    border: 1.7px solid #dbdbdb; 
+    margin-top: 2rem;
+}
+
+.side-item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+}
+
+.side-item * {
+    cursor: pointer;
+}
+
+.header,
+.footer{
+    padding: 1.2rem 0.6rem;  
 }

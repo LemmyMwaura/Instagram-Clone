@@ -9,16 +9,38 @@
 <div>
     <a href="{% url 'create-post' %}">Create Post</a>
 </div>
+<div class="posts">
     {% for post in posts %}
-    <img src="{{ post.image.url }}" alt="">
-    <h5>{{ post.caption }}</h5>
-    <a href="{% url 'profile' post.author.user_profile.id %}">{{ post.author.user_profile }}</a>
-    <div class="edits">
-        {% if request.user == post.author.user_profile %}
-        <a href="{% url 'update-post' post.id %}">Update Post</a>
-        <a href="{% url 'delete-post' post.id %}">Delete Post</a>
-        {% endif %}
-    </div>
-    {% endfor %}
+        <div class="post-wrapper">
+            <div class="header">
+                <div class="side-item">
+                    <div class="account-name">
+                        <a href="{% url 'profile' post.author.user_profile.id %}">{{ post.author.user_profile }}</a>
+                    </div>
+                    <i class='bx bx-dots-horizontal-rounded'></i>
+                </div>
+            </div>
+            <img src="{{ post.image.url }}" alt="">
+            <div class="footer">
+                <div class="edits side-item">
+                    <div class="edits-header">
+                        <i class='bx bx-heart'></i>
+                        <i class='bx bx-message-rounded-dots bx-flip-horizontal'></i>
+                    </div>
+                    {% if request.user == post.author.user_profile %}
+                    <div class="edits-footer">
+                        <a href="{% url 'update-post' post.id %}"><i class='bx bxs-edit'></i></a>
+                        <a href="{% url 'delete-post' post.id %}"><i class='bx bx-trash-alt'></i></a>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="caption">
+                    <span class="name">{{ post.author.user_profile }}</span>
+                    <span class="caption">{{ post.caption }}</span> 
+                </div>
+            </div>
+        </div>
+    {% endfor %}  
+</div>  
     
 {% endblock %}
