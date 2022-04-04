@@ -11,5 +11,7 @@ urlpatterns = [
     path('register/', views.register_user, name='register'),
     path('logout/', views.logout_user, name='logout'),
     path('profile/<str:pk>/', views.user_profile, name='profile'),
-    path('follow/<str:pk>', views.manage_follow, name='follow')
+    path('follow/<str:pk>/', views.manage_follow, name='follow'),
+
+    path('create_comment/<str:pk>/', views.create_comment, name='create-comment')
 ]

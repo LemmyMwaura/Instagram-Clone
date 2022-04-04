@@ -1,3 +1,4 @@
+from email.message import Message
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from .models import Post, Profile, Like, Comment
@@ -118,6 +119,22 @@ def delete_post(request, pk):
 
     context = { 'obj':post }
     return render(request, 'base/delete.html', context)
+
+@login_required(login_url='login')
+def create_comment(request, pk):
+    if request.method == 'POST':
+        if post := Post.objects.get(id=pk):
+            message = Comment.objects.create(
+                user = request.user,
+                post_to_comment = post,
+                body = request.POST.get('comment')
+            )
+        else:
+            messages.error('Post does not exist' )
+    else:
+        messages.error('Couldn\'t create your comment, Try again' )
+
+    return redirect('home')
 
 def user_profile(request,pk):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
