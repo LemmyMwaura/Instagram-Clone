@@ -130,7 +130,7 @@ def user_profile(request,pk):
     return render(request, 'base/profile.html', context)
 
 @login_required(login_url='login')
-def follow_toggle(request, pk):
+def manage_follow(request, pk):
     user_profile = Profile.objects.get(id=pk)
     all_profiles_followers = user_profile.followers.all()
     
