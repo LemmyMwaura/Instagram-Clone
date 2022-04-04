@@ -1,7 +1,6 @@
-from email.message import Message
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
-from .models import Post, Profile, Like, Comment
+from .models import Post, Profile, Comment
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -10,7 +9,6 @@ from django.db.models import Q
 from django.urls import reverse
 from django.contrib import messages 
 from .forms import PostForm
-import os
 
 def home(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
@@ -34,7 +32,8 @@ def login_page(request):
         password = request.POST.get('password')
         try:
             user = User.objects.get(username=username)
-        except:
+        except Exception as e:
+            print(e)
             messages.error(request, 'User does not exist')
 
         user = authenticate(request, username=username, password=password)
@@ -56,16 +55,20 @@ def register_user(request):
     page = 'register'
     form = UserCreationForm
 
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.username = user.username.lower()
-            user.save()
-            login(request, user)
-            return redirect('home')
-        else:
-            messages.error(request, 'An error occured during registration')
+    try:
+        if request.method == 'POST':
+            form = UserCreationForm(request.POST)
+            if form.is_valid():
+                user = form.save(commit=False)
+                user.username = user.username.lower()
+                user.save()
+                login(request, user)
+                return redirect('home')
+            else:
+                messages.error(request, 'An error occured during registration')
+    except Exception as e:
+        print(e)
+        messages.error('Something went wrong. Probably a connection issue. Try again')
 
     context = { 'page':page, 'form':form }
     return render(request, 'base/login_register.html', context)
@@ -114,7 +117,7 @@ def delete_post(request, pk):
         try:
             post.delete()
             return redirect('home')
-        except:
+        except Exception:
             messages.error('Post does not exist')
 
     context = { 'obj':post }
@@ -130,10 +133,23 @@ def create_comment(request, pk):
                 body = request.POST.get('comment')
             )
         else:
-            messages.error('Post does not exist' )
+            messages.error(request, 'Post does not exist' )
     else:
-        messages.error('Couldn\'t create your comment, Try again' )
+        messages.error(request, 'Couldn\'t create your comment, Try again' )
 
+    return redirect('home')
+
+@login_required(login_url='login')
+def like_post(request,pk):
+    if request.method == 'GET':
+        post = Post.objects.get(id=pk)
+
+        if post.likes.filter(id=request.user.id).exists():
+            post.likes.remove(request.user)
+        else:
+            post.likes.add(request.user)
+    else:
+        messages.error(request, 'You are not allowed here')
     return redirect('home')
 
 def user_profile(request,pk):
