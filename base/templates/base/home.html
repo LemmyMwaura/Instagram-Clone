@@ -6,9 +6,7 @@
 {% endblock %}
     
 {% block content %}
-<div>
-    <a href="{% url 'create-post' %}">Create Post</a>
-</div>
+
 <div class="posts">
     {% for post in posts %}
         <div class="post-wrapper">
@@ -35,9 +33,27 @@
                     {% endif %}
                 </div>
                 <div class="caption">
-                    <span class="name">{{ post.author.user_profile }}</span>
-                    <span class="caption">{{ post.caption }}</span> 
+                    <span class="account-name">
+                        <a href="{% url 'profile' post.author.user_profile.id %}">{{ post.author.user_profile }}</a>
+                    </span>
+                    <span class="caption-message">{{ post.caption }}</span> 
                 </div>
+            </div>
+            <div class="comments">
+                {% for comment in post.comments.all %}
+                    <div class="comment-wrapper">
+                        <span class="comment-user">{{ comment.user.username }}</span>
+                        <span>{{ comment.body }}</span>
+                    </div>
+                {% endfor %}
+                <form class="comment-form" action="{% url 'create-comment' post.id %}" method="POST">
+                    {% csrf_token %}
+                    <div class="smile">
+                        <i class='bx bx-smile'></i>
+                    </div>
+                    <input type="text" name="comment" class="form-comment-input" placeholder="Add a Comment...">
+                    <input type="submit" value="Post" class="submit submit-comment">
+                </form>
             </div>
         </div>
     {% endfor %}  

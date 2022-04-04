@@ -1,12 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Nunito+Sans:wght@300;400;600;700&display=swap');
+
+body{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+}
+
+a{
+    text-decoration: none;
+}
+
 nav{
     display: flex;
     align-items: center;
     justify-content: space-around;
     height: 4rem;
+    border-bottom: 1.5px solid #dbdbdb;
+    margin-bottom: 2rem;
 }
 
 .search{
     display: flex;
     align-items: center;
     gap: 0.4rem; 
+    background-color: #efefef;
+    padding: 0.6rem 0.7rem;
+    border-radius: 10px;
+}
+
+.search-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: #8e8e8e;
+    border: none;
+    outline: none;
+}
+
+.search input[type=text]::placeholder{
+    color: #8e8e8e;
+}
+
+.search input[type=text]{
+    border: none;
+    color: black;
+    background: none;
+    height: 1.2rem;
+    font-size: 1rem;
+}
+
+.search input[type=text]:focus{
+    border: none;
+    outline: none;
 }

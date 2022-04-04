@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Nunito+Sans:wght@300;400;600;700&display=swap');
+
 img{
     aspect-ratio: 4/4;
-    max-width: 500px;
+    max-width: 550px;
     object-fit: cover;
 }
 
@@ -15,9 +17,9 @@ a{
 
 .post-wrapper{
     transform: translateX(-10%);
-    max-width: 500px;
-    border: 1.7px solid #dbdbdb; 
-    margin-top: 2rem;
+    max-width: 550px;
+    border: 1.7px solid hsl(0, 0%, 86%); 
+    margin-bottom: 2rem;
 }
 
 .side-item{
@@ -33,4 +35,65 @@ a{
 .header,
 .footer{
     padding: 1.2rem 0.6rem;  
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.edits-header,
+.edits-footer > a{
+    font-size: 24px;
+    color: hsl(33, 44%, 5%);
+}
+
+.edits-footer > a {
+    color: hsl(33, 44%, 5%);
+}
+
+.account-name > a{
+    font-weight: 600;
+    color: hsl(33, 44%, 5%);
+}
+
+.smile{
+    font-size: 24px;
+}
+
+.comment-form{
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    grid-template-columns:0.5fr 5fr 1fr;
+    border-top: 1px solid hsl(0, 0%, 86%);
+    padding: 0.8rem 0.6rem;
+}
+
+.comment-wrapper{
+    padding: 0 0.6rem;
+}
+
+.comment-user{
+    color: hsl(33, 44%, 5%);
+    font-weight: 600;
+}
+
+.form-comment-input,
+.form-comment-input:focus{
+    border: none;
+    outline: none;
+}
+
+.submit-comment{
+    cursor: pointer;
+    border: none;
+    background: none;
+    color: hsl(204, 92%, 86%);
+    outline: none;
+}
+
+.form-comment-input:focus + .submit-comment{
+    color: hsl(204, 96%, 49%);
 }
