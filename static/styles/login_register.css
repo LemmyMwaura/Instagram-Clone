@@ -1,0 +1,72 @@
+
+.login,
+.register{
+    display: grid;
+    place-content: center;
+    min-height: calc(100vh - 8rem);
+}
+
+.auth-form {
+    display: grid;
+    height: 30vh;
+    justify-content: space-between;
+    column-gap: 20px;
+    width: 100%;
+}
+
+.form-group{
+    position: relative;
+}
+
+.form-label{
+    position:absolute;
+    top: -10px;
+    left: 10px;
+    padding: 0 4px;
+    background-color: white;
+    font-weight: 600;
+    color: black;
+    
+}
+
+h4{
+    margin: 0;
+    padding: 0;
+}
+
+.post-form-image{
+    margin-bottom: 0.4rem;
+}
+
+.username,
+.password {
+    border: 2px solid hsl(204, 96%, 49%);
+    outline: none;
+    padding: 0.8rem;
+    border-radius: 0.5rem;
+    width: 100%;
+    font-family: inherit;
+    font-weight: 550;
+    font-size: 0.8rem;
+    color: black;
+}
+
+.form-btn{
+    border: none;
+    outline: none;
+    background-color: hsl(204, 96%, 49%);
+    color: white;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 5px;
+    width: 115%;
+}
+
+.footer{
+    margin-top: 1rem;
+}
+
+.auth-link{
+    font-weight: 550;
+    color: black;
+}

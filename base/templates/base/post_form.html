@@ -2,16 +2,29 @@
 {% load static %}
 
 {% block link %}
+<link rel="stylesheet" href="{% static 'styles/post_form.css' %}">
 {% endblock %}
 
 {% block content %}
-
 {% load cloudinary %}
 <div class="container">
+    
     <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="submit">
+        <h4>Create a New Post</h4>
+        <div class="form-group">
+            <!-- <label class="form-label" for="id_image">Image</label> -->
+            {{ form.image }}
+        </div>
+        <div class="form-group">
+            <label class="form-label" for="id_image_name">Image Name</label>
+            {{ form.image_name }}
+        </div>
+        <div class="form-group">
+            <label class="form-label" for="id_caption">Caption</label>
+            {{ form.caption }}
+        </div>
+        <input type="submit" class="form-btn" value="submit">
     </form>
 </div>
 

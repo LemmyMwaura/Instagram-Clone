@@ -94,7 +94,7 @@ def update_post(request, pk):
     post = Post.objects.get(id=pk)
     form = PostForm(instance=post)
 
-    if request.user != post.author:
+    if request.user != post.user_posts:
         messages.error(request, 'You are not the author of the post!')
         return redirect('home')
 

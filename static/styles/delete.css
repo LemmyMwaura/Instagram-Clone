@@ -1,0 +1,21 @@
+main{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 8rem);
+}
+
+.delete-footer{
+    display: flex;
+    justify-content: space-between;
+}
+
+.delete-btn{
+    border: none;
+    outline: none;
+    background-color: hsl(204, 96%, 49%);
+    color: white;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 5px;
+}
