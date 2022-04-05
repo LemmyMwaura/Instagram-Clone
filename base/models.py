@@ -23,7 +23,7 @@ class Post(models.Model):
     caption = models.TextField()
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(Profile , on_delete=models.CASCADE)
+    author = models.ForeignKey(Profile , on_delete=models.CASCADE, null=True, blank=True)
     user_posts = models.ForeignKey(User , on_delete=models.CASCADE, null=True, blank=True)
     likes = models.ManyToManyField(User,  related_name='likes')
 

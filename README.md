@@ -10,40 +10,42 @@ Instagram Clone. Built with Django.
   - [License & Copywright Information](#License-and-Copywright-Information)
   - [Author](#author)
 
-<!-- ---
-___ -->
+---
+___
 
-<!-- ### Screenshot
-![Website](static/images/image.png) -->
-<!-- ___
---- -->
-<!-- ### Introduction
-Gallery App.
-Django gallery app that allows you to save your images and stores them in a CDN.
+### Screenshot
+![Website](static/images/image.png)
+___
+---
+### Introduction
+Instahram Clone.
+A basic clone of the famos Instagram app. Performs user authentication, stores user data in a database. Images are also stored in a CDN.
 
-The goal of this project is to provide minimalistic django configurations that stores your image files on a CDN and that anyone can use, which _just works_ out of the box and has the basic setup you can expand on. 
+The goal of this project is to provide minimalistic django configurations that stores your image files on a CDN and that anyone can use, It also _just works_ out of the box and has the basic setup you can expand on. 
 
-Project is written with django 4.0.3 and python 3 in mind. -->
+Project is written with django 4.0.3 and python 3 in mind.
 
-<!-- ---
-___ -->
+---
+___
 
-<!-- ### BDD
+### BDD
  #### Context
-   Given the admin uploads an image
+  Given that a user creates an account.
  #### Event
-  When the website is reloaded..
+  When the user logs in or interacts with the page
 #### Outcomes
-  Then a user should be able to view the image(s) on the home page.\
+  Then a user should be able to create a new Image/post with a caption.\
   Each Image should have an edit and delete button.\
-  When an image is clicked, a pop up modal should appear with the image's details.\
-  When the user tries to query the data(from an Image's details e.g category) only relevant images that much the specific query should be displayed.
+  Each post should have a comment section and other users can share their opinions.\
+  Each post should have a like and unlike option.\
+  When the user tries to query the data(from an Post's details e.g caption or user) only relevant posts that much the specific query should be displayed.
 
-* [x] A user can view images.
-* [x] Only the admin can add new images.
-* [x] Each image has its own pop up modal.
-* [x] The pop up activates on click.
-* [x] The images can be queried. -->
+* [x] A user can create an account and login.
+* [x] Users can make posts.
+* [x] Users can comment and like on posts
+* [x] Each user has a user profile.
+* [x] Each profile filters that specific users details.
+* [x] Data can be queried using the search feature.
 
 ---
 ___
