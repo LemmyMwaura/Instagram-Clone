@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class Profile(models.Model):
     user_profile = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_photo = CloudinaryField('profile_photo', blank=True)
-    bio = models.TextField(blank=True)
+    bio = models.CharField(blank=True, max_length=150)
     following = models.ManyToManyField('self', related_name='i_am_following', symmetrical=False, blank=True)
     followers = models.ManyToManyField('self', related_name='my_followers', symmetrical=False, blank=True)
     updated = models.DateTimeField(auto_now=True, blank=True)
@@ -19,7 +19,7 @@ class Profile(models.Model):
 
 class Post(models.Model):
     image = CloudinaryField('image')
-    image_name = models.TextField()
+    image_name = models.CharField(max_length=150)
     caption = models.TextField()
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
@@ -46,7 +46,7 @@ class Post(models.Model):
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     post_to_comment = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments', null=True)
-    body = models.TextField()
+    body = models.CharField(max_length=250)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
