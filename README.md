@@ -14,7 +14,7 @@ Instagram Clone. Built with Django.
 ___
 
 ### Screenshot
-![Website](static/images/image.png)
+![Website](static/images/web.png)
 ___
 ---
 ### Introduction
